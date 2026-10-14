@@ -15,8 +15,6 @@ jobs:
         run: |
           mkdir -p extracted_project
           unzip -o NovaTV_Pro_Native_Android_Project.zip -d extracted_project/
-          # التأكد من انتقال السيرفر لمكان الملفات المفكوكة بدقة
-          cd extracted_project
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
@@ -31,7 +29,7 @@ jobs:
 
       - name: Build Phone & TV Debug APKs
         run: |
-          cd extracted_project || true
+          cd extracted_project/* || cd extracted_project
           gradle assembleDebug --stacktrace
 
       - name: Upload Phone Remote APK
@@ -45,4 +43,3 @@ jobs:
         with:
           name: NovaTV-Screen-Receiver-APK
           path: '**/tv_app/build/outputs/apk/debug/tv_app-debug.apk'
-          
